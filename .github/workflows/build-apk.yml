@@ -41,7 +41,7 @@ jobs:
         run: npx cap sync android
 
       - name: Build APK
-        cd android
+        working-directory: android
         run: ./gradlew assembleDebug
 
       - name: Upload APK Artifact

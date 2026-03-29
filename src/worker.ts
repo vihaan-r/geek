@@ -43,8 +43,10 @@ self.addEventListener('message', async (event) => {
     }
 
     try {
-      // Format messages using ChatML format which SmolLM2 expects
-      const prompt = messages.map((m: any) => `<|im_start|>${m.role}\n${m.content}<|im_end|>`).join('\n') + '\n<|im_start|>assistant\n';
+      // Add a system prompt to encourage reasoning tags
+      const systemPrompt = `<|im_start|>system\nYou are a highly intelligent AI assistant. Always think step-by-step. Wrap your internal reasoning inside <think> and </think> tags before answering.<|im_end|>\n`;
+      
+      const prompt = systemPrompt + messages.map((m: any) => `<|im_start|>${m.role}\n${m.content}<|im_end|>`).join('\n') + '\n<|im_start|>assistant\n';
 
       let generatedText = "";
 
@@ -57,7 +59,7 @@ self.addEventListener('message', async (event) => {
       });
 
       await generator(prompt, {
-        max_new_tokens: 512,
+        max_new_tokens: 1024,
         temperature: 0.7,
         top_p: 0.9,
         do_sample: true,

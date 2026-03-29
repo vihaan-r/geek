@@ -1,0 +1,5 @@
+{
+  "name": "SmolLM2 Local Chat",
+  "description": "A modern Android-ready AI chatbot running SmolLM2-135M locally on-device.",
+  "requestFramePermissions": []
+}
